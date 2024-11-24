@@ -14,8 +14,8 @@ public class Hook : MonoBehaviour
     int length;
     int strength;
     int fishCount;
-
-    bool canMove = true;
+    
+    bool canMove ;
 
     //List<fish>
 
@@ -38,5 +38,54 @@ public class Hook : MonoBehaviour
             position.x = vector.x;
             transform.position = position;
         }
+    }
+
+    public void StartFishing()
+    {
+        length = -50;
+        strength = 3;
+        fishCount = 0;
+
+        float time = (-length) * .1f;
+
+        cameraTween = mainCamera.transform.DOMoveY(length, 1 + time, false).OnUpdate(delegate
+        {
+            if(mainCamera.transform.position.y <= -11)
+            {
+                transform.SetParent(mainCamera.transform);
+            }
+        }).OnComplete(delegate
+        {
+            coll.enabled = true;
+            cameraTween = mainCamera.transform.DOMoveY(0, time * 5, false).OnUpdate(delegate
+            {
+                if (mainCamera.transform.position.y >= -25f)
+                {
+                    StopFishing();
+                }
+            });
+        });
+        coll.enabled = false;
+        canMove = true;
+    }
+    void StopFishing()
+    {
+        canMove = false;
+        cameraTween.Kill(false);
+        cameraTween = mainCamera.transform.DOMoveY(0, 2, false).OnUpdate(delegate
+        {
+            if (mainCamera.transform.position.y >= -11)
+            {
+                transform.SetParent(null);
+                transform.position = new Vector2(transform.position.x, -6);
+
+            }
+        }).OnComplete(delegate
+        {
+            transform.position = Vector2.down * 6;
+            coll.enabled = true;
+            int num = 0;
+        });
+    
     }
 }

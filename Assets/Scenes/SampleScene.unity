@@ -789,7 +789,7 @@ Transform:
   m_GameObject: {fileID: 1932400759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a154b410b8855f46b4055b7bb3261d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookedTransform: {fileID: 0}
+  hookedTransform: {fileID: 1932400761}
 --- !u!58 &1932400763
 CircleCollider2D:
   m_ObjectHideFlags: 0
