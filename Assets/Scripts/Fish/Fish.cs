@@ -10,6 +10,7 @@ public class Fish : MonoBehaviour
     public class FishType
     {
         public int price;
+        public int fishCount;
         public float minLength;
         public float maxLength;
         public float colliderRadius;
@@ -33,25 +34,25 @@ public class Fish : MonoBehaviour
             type = value;
             collider2D.radius = type.colliderRadius;
             rend.sprite = type.sprite;
-            
+
         }
     }
-     void Awake()
+    void Awake()
     {
-        collider2D= GetComponent<CircleCollider2D>();
-        rend= GetComponent<SpriteRenderer>();
+        collider2D = GetComponent<CircleCollider2D>();
+        rend = GetComponentInChildren<SpriteRenderer>();
         screenLeft = Camera.main.ScreenToWorldPoint(Vector3.zero).x;
 
     }
 
 
-    void ResetFish()
+  public  void ResetFish()
     {
         if (tweener != null)
         {
             tweener.Kill(false);
-        } 
-        float num = UnityEngine.Random.Range(type.minLength,type.maxLength);
+        }
+        float num = UnityEngine.Random.Range(type.minLength, type.maxLength);
         collider2D.enabled = true;
         Vector3 poistion = transform.position;
         poistion.y = num;
@@ -59,8 +60,8 @@ public class Fish : MonoBehaviour
         transform.position = poistion;
 
         float num2 = 1;
-        float y = UnityEngine.Random.Range(num - num2 , num+num2);
-        Vector2 v = new Vector2(-poistion.x,y);
+        float y = UnityEngine.Random.Range(num - num2, num + num2);
+        Vector2 v = new Vector2(-poistion.x, y);
 
         float num3 = 3;
         float delay = UnityEngine.Random.Range(0, 2 * num3);
@@ -72,5 +73,10 @@ public class Fish : MonoBehaviour
 
         });
     }
-
+    public void Hooked()
+    {
+        collider2D.enabled =
+            false;
+        tweener.Kill(false);
+    }
 }
